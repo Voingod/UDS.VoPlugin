@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Activities;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,11 @@ namespace UDS.VoPlugin.Task10
         public InArgument<int> IntParam { get; set; }
         
         [RequiredArgument]
+        [ReferenceTarget("account")]
+        [Input("Account")]
+        public InArgument<EntityReference> Account { get; set; }
+
+        [RequiredArgument]
         [Output("OuterString")]
         public OutArgument<string> OutParam { get; set; }
         #endregion
@@ -33,38 +39,35 @@ namespace UDS.VoPlugin.Task10
             var serviceFactory = executionContext.GetExtension<IOrganizationServiceFactory>();
             var service = serviceFactory.CreateOrganizationService(context.UserId);
 
-            var textPar = TextParam.Get<string>(executionContext);
-            var intPar = IntParam.Get<int>(executionContext);
+            string textPar = TextParam.Get<string>(executionContext);
+            int intPar = IntParam.Get<int>(executionContext);
+            EntityReference company = Account.Get<EntityReference>(executionContext);
 
-            Entity updatedEntity = new Entity(context.PrimaryEntityName);
-            updatedEntity.Id = context.PrimaryEntityId;
+            Entity updatedEntity = new Entity(context.PrimaryEntityName)
+            {
+                Id = context.PrimaryEntityId
+            };
             updatedEntity["new_text"] = textPar;
             updatedEntity["new_noun"] = intPar;
 
-
-            EntityReference company = updatedEntity.GetAttributeValue<EntityReference>("new_account");
             if (company == null)
             {
-                OutParam.Set(executionContext, "not has attribute");
-                return;
-            }
-
-            Entity account = service.Retrieve(company.LogicalName, company.Id, new ColumnSet("emailaddress1"));
-            if (account.Attributes.ContainsKey("emailaddress1"))
-            {
-                OutParam.Set(executionContext, account.GetAttributeValue<string>("emailaddress1"));
+                OutParam.Set(executionContext, "Record doesn't have account");
             }
             else
             {
-                OutParam.Set(executionContext, "WHY???");
+                Entity account = service.Retrieve(company.LogicalName, company.Id, new ColumnSet("emailaddress1"));
+                if (account.Attributes.ContainsKey("emailaddress1"))
+                {
+                    OutParam.Set(executionContext, account.GetAttributeValue<string>("emailaddress1"));
+                }
+                else
+                {
+                    OutParam.Set(executionContext, "Record's account doesn't have Email");
+                }
             }
-            
 
             service.Update(updatedEntity);
-
-
-
-
         }
     }
 }
