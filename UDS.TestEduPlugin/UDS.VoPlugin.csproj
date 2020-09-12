@@ -99,6 +99,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repository\VoService.cs" />
     <Compile Include="Task10\Step1Workflow.cs" />
     <Compile Include="Repository\ContactRepository.cs" />
     <Compile Include="ServiceClass.cs" />
