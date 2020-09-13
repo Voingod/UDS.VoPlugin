@@ -102,11 +102,13 @@
     <Compile Include="Actions.cs" />
     <Compile Include="Entities.cs" />
     <Compile Include="OptionSets.cs" />
+    <Compile Include="Repository\VoMainScriptDeactivateRepository.cs" />
     <Compile Include="Services\DeactivateService.cs" />
     <Compile Include="Repository\VoMainScriptRepository.cs" />
     <Compile Include="Task10\Step1Workflow.cs" />
     <Compile Include="Repository\ContactRepository.cs" />
     <Compile Include="Services\VoService.cs" />
+    <Compile Include="Task12\Step1ActionDeactivateChildEntity.cs" />
     <Compile Include="Task9\Step2SetStateDynamicEntity.cs" />
     <Compile Include="Task9\Step2SetState.cs" />
     <Compile Include="Task7\Step2.cs" />

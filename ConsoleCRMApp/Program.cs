@@ -22,10 +22,19 @@ namespace ConsoleCRMApp
             OrganizationServiceProxy serviceProxy = ConnectHelper.CrmService;
             var service = (IOrganizationService)serviceProxy;
             serviceProxy.ServiceConfiguration.CurrentServiceEndpoint.Behaviors.Add(new ProxyTypesBehavior());
-            VoService voService = new VoService(service);
+            //VoService voService = new VoService(service);
             //voService.Deactivate();
+            //voService.EarlyBoundDeactivate();
 
-            voService.EarlyBoundDeactivate();
+            ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+            //CrmServiceContext context = new CrmServiceContext(service);
+
+
+
+            VoMainScriptDeactivateRepository voMainScript = new VoMainScriptDeactivateRepository(service);
+            var e = voMainScript.EarlyBoundGetEntities(new Guid("E71698A5-1BEA-EA11-8129-00155D06F203"));
+
             Console.ReadLine();
 
         }
