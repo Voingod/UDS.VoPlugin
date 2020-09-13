@@ -99,6 +99,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions.cs" />
+    <Compile Include="Entities.cs" />
+    <Compile Include="OptionSets.cs" />
     <Compile Include="Services\DeactivateService.cs" />
     <Compile Include="Repository\VoMainScriptRepository.cs" />
     <Compile Include="Task10\Step1Workflow.cs" />

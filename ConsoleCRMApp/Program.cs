@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CrmEarlyBound;
 using KostenVoranSchlagConsoleParser.Helpers;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
@@ -20,10 +21,11 @@ namespace ConsoleCRMApp
 
             OrganizationServiceProxy serviceProxy = ConnectHelper.CrmService;
             var service = (IOrganizationService)serviceProxy;
-
+            serviceProxy.ServiceConfiguration.CurrentServiceEndpoint.Behaviors.Add(new ProxyTypesBehavior());
             VoService voService = new VoService(service);
-            voService.Deactivate();
+            //voService.Deactivate();
 
+            voService.EarlyBoundDeactivate();
             Console.ReadLine();
 
         }
