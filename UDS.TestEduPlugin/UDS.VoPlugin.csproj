@@ -99,10 +99,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repository\VoService.cs" />
+    <Compile Include="Services\DeactivateService.cs" />
+    <Compile Include="Repository\VoMainScriptRepository.cs" />
     <Compile Include="Task10\Step1Workflow.cs" />
     <Compile Include="Repository\ContactRepository.cs" />
-    <Compile Include="ServiceClass.cs" />
+    <Compile Include="Services\VoService.cs" />
     <Compile Include="Task9\Step2SetStateDynamicEntity.cs" />
     <Compile Include="Task9\Step2SetState.cs" />
     <Compile Include="Task7\Step2.cs" />

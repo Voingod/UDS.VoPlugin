@@ -8,22 +8,22 @@ using System.Threading.Tasks;
 
 namespace UDS.VoPlugin.Repository
 {
-    public class VoService
+    public class VoMainScriptRepository
     {
         private IOrganizationService _service;
         private const string FirstEntityName = "new_vo_main_script";
         private const string SecondEntityName = "new_vo_two_main";
         private const string LinkEntityName = "new_new_vo_two_main_new_vo_main_script";
-        public VoService(IOrganizationService service)
+        public VoMainScriptRepository(IOrganizationService service)
         {
             _service = service;
         }
 
-        public DataCollection<Entity> GetLinkEntities()
+        public DataCollection<Entity> GetEntities()
         {
             var query = new QueryExpression(FirstEntityName)
             {
-                ColumnSet = new ColumnSet("new_name", "createdon", "new_account"),
+                ColumnSet = new ColumnSet("new_name", "createdon", "new_account", "statecode"),
                 Criteria = new FilterExpression()
                 {
                     Conditions =
@@ -46,18 +46,7 @@ namespace UDS.VoPlugin.Repository
                 }
             };
             var records = _service.RetrieveMultiple(query);
-            var a = records.Entities.GroupBy(g => g.Id);
             return records.Entities;
         }
-        public static IEnumerable<object> GetValues<T>(IEnumerable<T> items, string propertyName)
-        {
-            Type type = typeof(T);
-            var prop = type.GetProperty(propertyName);
-            foreach (var item in items)
-                yield return prop.GetValue(item, null);
-        }
     }
-
-
-    
 }
