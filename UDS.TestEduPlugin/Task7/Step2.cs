@@ -35,7 +35,8 @@ namespace UDS.VoPlugin.Task7
             Entity account = service.Retrieve(company.LogicalName, company.Id, new ColumnSet("emailaddress1"));
             if (account.Attributes.ContainsKey("emailaddress1"))
             {
-                target["new_emailfromplugin"] = account.GetAttributeValue<string>("emailaddress1");
+                target["new_emailfromplugin"] = "Клиент соответствует требованиям";
+                    //account.GetAttributeValue<string>("emailaddress1");
                 localContext.Trace("Конец логирования: ");
             }
             else
